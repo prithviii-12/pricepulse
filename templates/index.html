@@ -1,21 +1,23 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>💰PricePulse - Find Lowest Prices</title>
+    <title>💰PricePulse</title>
     <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
 
-<h1>⚡ PricePulse</h1>
-<p class="tagline">Feel the Pulse of Prices</p>
+<div class="header">
+    <h1>⚡ PricePulse</h1>
+    <p class="tagline">Feel the Pulse of Prices</p>
+    <p class="tagline">Find the best price instantly</p>
+</div>
 
-<div class="search-box">
-    <input type="text" id="product" placeholder="Search product...">
+<div class="search-container">
+    <input type="text" id="product" placeholder="Search for products...">
     <button onclick="searchProduct()">Search</button>
 </div>
 
-<div id="results"></div>
-
+<div id="results" class="grid"></div>
 <div class="features">
     <h2>Why PricePulse?</h2>
     <p>✔ Compare prices across multiple platforms</p>
