@@ -3,37 +3,50 @@ import requests
 
 app = Flask(__name__)
 
-# 🔹 API 1: Fake Store
-def get_fake_store_products(query):
-    url = "https://fakestoreapi.com/products"
-    res = requests.get(url).json()
-
-    results = []
-    for item in res:
-        if query.lower() in item['title'].lower():
-            results.append({
-                "site": "FakeStore",
-                "title": item["title"],
-                "price": float(item["price"]),
-                "link": item["image"]
-            })
-    return results
-
-
-# 🔹 API 2: Dummy JSON Store
+# 🔹 Dummy API (works)
 def get_dummy_products(query):
-    url = "https://dummyjson.com/products/search?q=" + query
+    url = f"https://dummyjson.com/products/search?q={query}"
     res = requests.get(url).json()
 
     results = []
     for item in res["products"]:
         results.append({
-            "site": "DummyStore",
+            "site": "Global Store",
             "title": item["title"],
             "price": float(item["price"]),
-            "link": item["thumbnail"]
+            "image": item["thumbnail"],
+            "link": "#"
         })
     return results
+
+
+# 🔹 RapidAPI Example (optional real API)
+def get_rapidapi_products(query):
+    url = "https://real-time-product-search.p.rapidapi.com/search"
+
+    headers = {
+        "X-RapidAPI-Key": "YOUR_API_KEY",
+        "X-RapidAPI-Host": "real-time-product-search.p.rapidapi.com"
+    }
+
+    params = {"q": query, "country": "in"}
+
+    try:
+        res = requests.get(url, headers=headers, params=params).json()
+
+        results = []
+        for item in res.get("data", [])[:5]:
+            results.append({
+                "site": item.get("source", "Store"),
+                "title": item.get("title"),
+                "price": float(item.get("price", 0)),
+                "image": item.get("product_photo"),
+                "link": item.get("product_page_url")
+            })
+        return results
+
+    except:
+        return []
 
 
 @app.route("/")
@@ -46,10 +59,13 @@ def search():
     query = request.args.get("product")
 
     results = []
-    results += get_fake_store_products(query)
     results += get_dummy_products(query)
 
-    # Sort by lowest price
+    # Uncomment after adding API key
+    # results += get_rapidapi_products(query)
+
+    results = [r for r in results if r["price"] > 0]
+
     results = sorted(results, key=lambda x: x["price"])
 
     return jsonify(results)
