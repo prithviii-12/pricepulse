@@ -1,58 +1,79 @@
 body {
     font-family: Arial;
-    text-align: center;
-    background: linear-gradient(135deg, #1e3c72, #2a5298);
-    color: white;
     margin: 0;
+    background: #f4f6f9;
 }
 
-h1 {
-    font-size: 42px;
-    margin-top: 30px;
+.header {
+    background: #1e3c72;
+    color: white;
+    padding: 20px;
+    text-align: center;
 }
 
+.search-container {
+    text-align: center;
+    margin: 20px;
+}
 .tagline {
     font-size: 18px;
     margin-bottom: 20px;
 }
 
-.search-box {
-    margin: 20px;
-}
-
 input {
     padding: 12px;
-    width: 280px;
-    border-radius: 25px;
-    border: none;
+    width: 300px;
+    border-radius: 20px;
+    border: 1px solid #ccc;
 }
 
 button {
-    padding: 12px 20px;
-    border-radius: 25px;
-    border: none;
+    padding: 12px 18px;
+    border-radius: 20px;
     background: #ffcc00;
+    border: none;
     cursor: pointer;
 }
 
-button:hover {
-    background: #ffdd33;
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 20px;
 }
 
-.result-card {
+.card {
     background: white;
-    color: black;
-    margin: 15px auto;
-    padding: 15px;
-    width: 400px;
     border-radius: 12px;
+    padding: 15px;
+    text-align: center;
+    transition: 0.3s;
 }
 
-.result-card img {
-    margin-top: 10px;
-    border-radius: 8px;
+.card:hover {
+    transform: scale(1.05);
+}
+
+.card img {
+    width: 100%;
+    height: 200px;
+    object-fit: contain;
+}
+
+.price {
+    color: green;
+    font-size: 20px;
+}
+
+.best {
+    color: red;
+    font-weight: bold;
 }
 
 .features {
-    margin-top: 40px;
+    background: #fff;
+    margin: 20px;
+    padding: 20px;
+    border-radius: 12px;
+    text-align: center;
 }
